@@ -1,20 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Operation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <style>
-        html{
-            scroll-behavior: smooth;
-        }
-        form{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
-    </style>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,38 +38,72 @@
             <button id="add_btn" class="btn btn-outline-secondary" type="button" id="button-addon2">Add</button>
         </div>
         
-        <ul id="append-item" class="list-group ">
+        <ul id="parent-list" class="list-group ">
             <li class="list-group-item d-flex justify-content-between ">
                 <p class="flex-grow-1">Chapter 1</p>
-                <button type="button" class="btn btn-outline-warning btn-sm mr-2">Edit</button>
-                <button type="button" class="btn btn-outline-danger  btn-sm">Remove</button>
+                <button type="button" class="btn btn-outline-warning btn-sm mr-2" onclick="editChapter(this)">Edit</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeChapter(this)">Remove</button>
             </li>
-            <!-- <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li> -->
+            
         </ul>
         </div>
         <script>
         let addBtn=document.getElementById('add_btn')
         addBtn.addEventListener('click',addChapter)
+        let parentList=document.getElementById('parent-list')
         function addChapter(e){
+            if(parentList.children[0].className=="alert alert-secondary d-flex justify-content-center"){
+                parentList.children[0].remove();
+            }
             let currentBtn=e.currentTarget
             let Input=currentBtn.previousElementSibling
             let currentInputCh=Input.value
-          // console.log(Input.value);
-
+            
             let NewLi=document.createElement('li')
             // NewLi.classList.add('list-group-item')
             NewLi.className="list-group-item d-flex justify-content-between"
             NewLi.innerHTML= `<p class="flex-grow-1">${currentInputCh}</p>
-                <button type="button" class="btn btn-outline-warning btn-sm mr-2">Edit</button>
-                <button type="button" class="btn btn-outline-danger  btn-sm">Remove</button>`
+                <button type="button" class="btn btn-outline-warning btn-sm mr-2" onclick="editChapter(this)">Edit</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeChapter(this)">Remove</button>`
 
-            let ulItem=document.getElementById('append-item')
-            ulItem.appendChild(NewLi);
+            
+            parentList.appendChild(NewLi);
+
         }
-         
+        function removeChapter(currentElement){
+            currentElement.parentElement.remove()
+            if(parentList.children.length<=0){
+                let newemptyMsg=document.createElement('div')
+                // newemptyMsg.classList.add("emptyMsg")
+                newemptyMsg.className="alert alert-secondary d-flex justify-content-center"
+                newemptyMsg.textContent="Nothing is here! please add some text"
+                parentList.append(newemptyMsg)
+            }
+            
+        }
+        
+        function editChapter(currentElement) {
+    if(currentElement.textContent=="Done")
+    {
+        currentElement.textContent="Edit"
+        let currChapterName = currentElement.previousElementSibling.value;
+        let currPara = document.createElement("p");     
+        currPara.className="flex-grow-1"
+        currPara.textContent=currChapterName
+        currentElement.parentElement.replaceChild(currPara, currentElement.previousElementSibling)
+    }
+    else{
+        currentElement.textContent="Done"
+        let currChapterName = currentElement.previousElementSibling.textContent;
+    let currInput = document.createElement("input");
+    currInput.type = "text";
+    currInput.placeholder = "Chapter Name";
+    currInput.className = "form-control";
+    currInput.value = currChapterName;
+
+    currentElement.parentElement.replaceChild(currInput, currentElement.previousElementSibling);
+    }
+}
         </script>
 </body>
 </html>
