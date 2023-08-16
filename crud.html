@@ -41,8 +41,8 @@
         <ul id="parent-list" class="list-group ">
             <li class="list-group-item d-flex justify-content-between ">
                 <p class="flex-grow-1">Chapter 1</p>
-                <button type="button" class="btn btn-outline-warning btn-sm mr-2" onclick="editChapter(this)">Edit</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeChapter(this)">Remove</button>
+                <button type="button" class="btn btn-outline-warning mr-2" onclick="editChapter(this)">Edit</button>
+                <button type="button" class="btn btn-outline-danger" onclick="removeChapter(this)">Remove</button>
             </li>
             
         </ul>
@@ -63,8 +63,8 @@
             // NewLi.classList.add('list-group-item')
             NewLi.className="list-group-item d-flex justify-content-between"
             NewLi.innerHTML= `<p class="flex-grow-1">${currentInputCh}</p>
-                <button type="button" class="btn btn-outline-warning btn-sm mr-2" onclick="editChapter(this)">Edit</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeChapter(this)">Remove</button>`
+                <button type="button" class="btn btn-outline-warning mr-2" onclick="editChapter(this)">Edit</button>
+                <button type="button" class="btn btn-outline-danger" onclick="removeChapter(this)">Remove</button>`
 
             
             parentList.appendChild(NewLi);
